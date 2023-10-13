@@ -1,11 +1,11 @@
-POST http://localhost:3003/restaurants
+POST http://localhost:3003/api/restaurants
 Content-Type: application/json
 
 {
-  "title": "Test Restaurant 001",
-  "street": "Radickestraße 36",
-  "zipCode": "12489",
+  "title": "Test Restaurant 002",
+  "street": "Wilhelminenhofstraße 75a",
+  "zipCode": "12459",
   "likeCount": "0",
-  "imageSrc": "test",
-  "description": "lorem ipsum dolor sit amet"
+  "imageSrc": "test2",
+  "description": "ahahdhasd jhasdhahs asdhjlashd"
 }

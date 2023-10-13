@@ -1,1 +1,1 @@
-GET http://localhost:3003/restaurants
+GET http://localhost:3003/api/restaurants

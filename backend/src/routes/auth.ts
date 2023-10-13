@@ -1,10 +1,10 @@
-import Router from 'express';
+import Router, { Request, Response } from 'express';
 import UserModel from '../models/user';
 import { User } from '../types';
 
 const authRouter = Router();
 
-authRouter.post('/', async (request, response) => {
+authRouter.post('/', async (request: Request, response: Response) => {
   const { username, password } = request.body;
 
   const user: User | null = await UserModel.findOne({ userId: username });
