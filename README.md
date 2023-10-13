@@ -5,7 +5,7 @@
 - **Name**: Louis Beul
 - **Matrikelnr.**: 588411
 - **App Name**: Foodle
-- **Items**: Restaurants (`{title, lat, lon, likeCount, imageSrc, description}`)
+- **Items**: Restaurants (`{title, lat, lon, street, zipCode, likeCount, imageSrc, description}`)
 - **Backend Option**: Self-built Express/TypeScript/MongoDB Backend
 
 > **Foodle** is a place to save all the hidden street food gems in Berlin.
@@ -13,6 +13,7 @@
 
 ## :iphone: Frontend
 
+- React+Typescript, bundled with `vite`
 - tba... :construction:
 
 ## :floppy_disk: Backend
