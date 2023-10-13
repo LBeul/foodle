@@ -4,6 +4,20 @@
 ### dotenv ###
 .env
 
+### vite ###
+
+dist-ssr
+*.local
+# Editor directories and files
+!.vscode/extensions.json
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+
 ### macOS ###
 # General
 .DS_Store
