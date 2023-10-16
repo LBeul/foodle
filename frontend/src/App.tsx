@@ -5,9 +5,13 @@ import { useEffect } from 'react';
 function App() {
   useEffect(() => {
     const fetchData = async () => {
-      const data = await fetch('http://localhost:3003/api/restaurants');
-      const parsedData = await data.json();
-      console.log(parsedData);
+      try {
+        const data = await fetch('http://localhost:3003/api/restaurants');
+        const parsedData = await data.json();
+        console.log(parsedData);
+      } catch (err) {
+        console.log("Can't connect to the server");
+      }
     };
     fetchData();
   }, []);
