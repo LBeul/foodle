@@ -1,13 +1,32 @@
 <!DOCTYPE html>
+<script>
+  const fetchFromAPI = async () => {
+    try {
+      const apiResponse = await fetch('http://localhost:3003/api/restaurants');
+      const items = await apiResponse.json();
+      return items;
+    } catch (e) {
+      return "Can't connect to Server!";
+    }
+  };
+
+  const displayFetchedData = async (e) => {
+    const data = await fetchFromAPI();
+    console.log('fetched data', data);
+    alert(
+      `=> ${data.map((i) => i.title).toString()}
+      (Check console for detailed logs)`
+    );
+  };
+</script>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/foodle.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Foodle</title>
+    <title>Test</title>
   </head>
   <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
+    <h1>Test</h1>
+    <button type="button" onclick="displayFetchedData()">Fetch API data</button>
   </body>
 </html>
