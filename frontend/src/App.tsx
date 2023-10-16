@@ -1,7 +1,16 @@
 import foodleIcon from '/foodle.svg';
 import './App.css';
+import { useEffect } from 'react';
 
 function App() {
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await fetch('http://localhost:3003/api/restaurants');
+      const parsedData = await data.json();
+      console.log(parsedData);
+    };
+    fetchData();
+  }, []);
   return (
     <>
       <div>
@@ -9,7 +18,7 @@ function App() {
       </div>
       <h1>Foodle</h1>
       <div className='card'>
-        <p>Work in Progress ...</p>
+        <p>Check console for queried data!</p>
       </div>
     </>
   );
