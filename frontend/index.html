@@ -7,30 +7,59 @@
   </head>
   <body>
     <h1>Test</h1>
-    <button type="button" id="fetch-button">Fetch API data</button>
+    <div>
+      Get all entries:
+      <button type="button" id="all-button">Get all</button>
+    </div>
+    <hr />
+    <div>
+      Get entry by id:
+      <input type="text" name="item-id" id="item-id" />
+      <button type="button" id="one-button">Get all</button>
+    </div>
+    <hr />
+    <div>Example ID: 6528605195963c6695d8b431</div>
   </body>
   <script async>
-    const fetchFromAPI = async () => {
+    const fetchAll = async () => {
       try {
         const apiResponse = await fetch(
           'http://localhost:3003/api/restaurants'
         );
         const items = await apiResponse.json();
-        return items;
+        console.log('fetched data', items);
+        alert(
+          `=> ${items.map((i) => i.title).toString()}
+        (Check console for detailed logs)`
+        );
       } catch (e) {
-        return "Can't connect to Server!";
+        alert("Can't connect to Server!");
       }
     };
 
-    const displayFetchedData = async () => {
-      const data = await fetchFromAPI();
-      console.log('fetched data', data);
-      alert(
-        `=> ${data.map((i) => i.title).toString()}
-        (Check console for detailed logs)`
-      );
+    const fetchById = async () => {
+      const id = document.getElementById('item-id').value;
+      console.log(id);
+      if (!id) {
+        alert('Add an ID!');
+        return;
+      }
+      try {
+        const apiResponse = await fetch(
+          `http://localhost:3003/api/restaurants/${id}`
+        );
+        const item = await apiResponse.json();
+        console.log('fetched data', item);
+        alert(`=> ${item.title} (Check console for detailed logs)`);
+      } catch (e) {
+        alert("Can't connect to Server!");
+      }
     };
-    const button = document.getElementById('fetch-button');
-    button.addEventListener('click', displayFetchedData);
+
+    const allButton = document.getElementById('all-button');
+    allButton.addEventListener('click', fetchAll);
+
+    const oneButton = document.getElementById('one-button');
+    oneButton.addEventListener('click', fetchById);
   </script>
 </html>
