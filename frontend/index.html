@@ -1,24 +1,4 @@
 <!DOCTYPE html>
-<script>
-  const fetchFromAPI = async () => {
-    try {
-      const apiResponse = await fetch('http://localhost:3003/api/restaurants');
-      const items = await apiResponse.json();
-      return items;
-    } catch (e) {
-      return "Can't connect to Server!";
-    }
-  };
-
-  const displayFetchedData = async (e) => {
-    const data = await fetchFromAPI();
-    console.log('fetched data', data);
-    alert(
-      `=> ${data.map((i) => i.title).toString()}
-      (Check console for detailed logs)`
-    );
-  };
-</script>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -27,6 +7,30 @@
   </head>
   <body>
     <h1>Test</h1>
-    <button type="button" onclick="displayFetchedData()">Fetch API data</button>
+    <button type="button" id="fetch-button">Fetch API data</button>
   </body>
+  <script async>
+    const fetchFromAPI = async () => {
+      try {
+        const apiResponse = await fetch(
+          'http://localhost:3003/api/restaurants'
+        );
+        const items = await apiResponse.json();
+        return items;
+      } catch (e) {
+        return "Can't connect to Server!";
+      }
+    };
+
+    const displayFetchedData = async () => {
+      const data = await fetchFromAPI();
+      console.log('fetched data', data);
+      alert(
+        `=> ${data.map((i) => i.title).toString()}
+        (Check console for detailed logs)`
+      );
+    };
+    const button = document.getElementById('fetch-button');
+    button.addEventListener('click', displayFetchedData);
+  </script>
 </html>
