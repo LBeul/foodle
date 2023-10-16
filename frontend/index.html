@@ -9,16 +9,8 @@
     <h1>Test</h1>
     <div>
       Get all entries:
-      <button type="button" id="all-button">Get all</button>
+      <button type="button" id="fetch-button">Get all</button>
     </div>
-    <hr />
-    <div>
-      Get entry by id:
-      <input type="text" name="item-id" id="item-id" />
-      <button type="button" id="one-button">Get all</button>
-    </div>
-    <hr />
-    <div>Example ID: 6528605195963c6695d8b431</div>
   </body>
   <script async>
     const fetchAll = async () => {
@@ -36,30 +28,7 @@
         alert("Can't connect to Server!");
       }
     };
-
-    const fetchById = async () => {
-      const id = document.getElementById('item-id').value;
-      console.log(id);
-      if (!id) {
-        alert('Add an ID!');
-        return;
-      }
-      try {
-        const apiResponse = await fetch(
-          `http://localhost:3003/api/restaurants/${id}`
-        );
-        const item = await apiResponse.json();
-        console.log('fetched data', item);
-        alert(`=> ${item.title} (Check console for detailed logs)`);
-      } catch (e) {
-        alert("Can't connect to Server!");
-      }
-    };
-
-    const allButton = document.getElementById('all-button');
-    allButton.addEventListener('click', fetchAll);
-
-    const oneButton = document.getElementById('one-button');
-    oneButton.addEventListener('click', fetchById);
+    const fetchBtn = document.getElementById('fetch-button');
+    fetchBtn.addEventListener('click', fetchAll);
   </script>
 </html>
