@@ -2,33 +2,12 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="/ramen.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Test</title>
+    <title>Foodle</title>
   </head>
   <body>
-    <h1>Test</h1>
-    <div>
-      Get all entries:
-      <button type="button" id="fetch-button">Get all</button>
-    </div>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
   </body>
-  <script async>
-    const fetchAll = async () => {
-      try {
-        const apiResponse = await fetch(
-          'http://localhost:3003/api/restaurants'
-        );
-        const items = await apiResponse.json();
-        console.log('fetched data', items);
-        alert(
-          `=> ${items.map((i) => i.title).toString()}
-        (Check console for detailed logs)`
-        );
-      } catch (e) {
-        alert("Can't connect to Server!");
-      }
-    };
-    const fetchBtn = document.getElementById('fetch-button');
-    fetchBtn.addEventListener('click', fetchAll);
-  </script>
 </html>
