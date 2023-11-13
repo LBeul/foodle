@@ -4,3 +4,19 @@
   padding: 2rem;
   text-align: center;
 }
+
+button {
+  margin-bottom: 8px;
+  padding: 12px;
+  font-size: 1em;
+  border-radius: 8px;
+  font-weight: 600;
+  background-color: white;
+  color: teal;
+  border: 2px solid teal;
+}
+
+button:hover {
+  background-color: teal;
+  color: white;
+}
