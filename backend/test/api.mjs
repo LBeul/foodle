@@ -6,7 +6,7 @@ const getAll = async () => {
     const data = await response.json();
     return data;
   } catch (err) {
-    console.err(err);
+    console.error(err);
     return { error: err.message };
   }
 };
@@ -17,7 +17,7 @@ const getById = async (id) => {
     const data = await response.json();
     return data;
   } catch (err) {
-    console.err(err);
+    console.error(err);
     return { error: err.message };
   }
 };
