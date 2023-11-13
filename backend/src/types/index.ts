@@ -1,19 +1,19 @@
-export type Restaurant = RestaurantWithoutCoords & {
+export interface Restaurant extends RestaurantWithoutCoords {
   lat: string;
   lon: string;
-};
+}
 
-export type RestaurantWithoutCoords = {
+export interface RestaurantWithoutCoords {
   title: string;
   likeCount?: number;
   imageSrc: string;
   street: string;
   zipCode: string;
   description: string;
-};
+}
 
-export type User = {
+export interface User {
   userId: string;
   password: string;
   isAdmin: boolean;
-};
+}
