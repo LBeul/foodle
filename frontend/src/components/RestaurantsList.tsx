@@ -9,11 +9,11 @@ interface Restaurant {
   description: string;
 }
 
-export default function RestaurantsList({
-  restaurants,
-}: {
+interface props {
   restaurants: Restaurant[];
-}): ReactElement {
+}
+
+const RestaurantsList = ({ restaurants }: props): ReactElement => {
   return (
     <>
       {restaurants.map((r) => (
@@ -24,4 +24,6 @@ export default function RestaurantsList({
       ))}
     </>
   );
-}
+};
+
+export default RestaurantsList;
