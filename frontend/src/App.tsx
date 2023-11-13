@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import './App.css';
-import RestaurantsList from './components/RestaurantsList';
+import RestaurantsList from './components/RestaurantsList/RestaurantsList';
+import { Button, Container, Heading, Text, VStack } from '@chakra-ui/react';
 
 function App() {
   const [restaurants, setRestaurants] = useState([]);
@@ -16,17 +16,24 @@ function App() {
   };
 
   return (
-    <>
-      <div style={{ fontSize: '5rem' }}>🍜</div>
-      <h1>Foodle</h1>
-      <p>Work In Progress...</p>
-      <button onClick={fetchRestaurants}>Fetch restaurants</button>
-      {restaurants.length ? (
-        <RestaurantsList restaurants={restaurants} />
-      ) : (
-        <div>Click to load restaurants</div>
-      )}
-    </>
+    <main>
+      <VStack w='80%' mx='auto'>
+        <Heading my={4}>Foodle</Heading>
+        <Button
+          onClick={fetchRestaurants}
+          my={4}
+          variant='outline'
+          colorScheme='purple'
+        >
+          Fetch restaurants
+        </Button>
+        {restaurants.length ? (
+          <RestaurantsList restaurants={restaurants} />
+        ) : (
+          <Text>Click to load restaurants</Text>
+        )}
+      </VStack>
+    </main>
   );
 }
 
