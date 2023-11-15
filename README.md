@@ -14,7 +14,8 @@
 ## :iphone: Frontend
 
 - React+Typescript, bundled with `vite`
-- tba... :construction:
+- Styling via `ChakraUI`
+- Icons from `react-icons`
 
 ## :floppy_disk: Backend
 
