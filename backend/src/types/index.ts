@@ -5,8 +5,8 @@ export interface Restaurant extends RestaurantWithoutCoords {
 
 export interface RestaurantWithoutCoords {
   title: string;
-  likeCount?: number;
-  imageSrc: string;
+  likeCount: number;
+  imageSrc?: string;
   street: string;
   zipCode: string;
   description: string;

@@ -6,7 +6,7 @@ const restaurantSchema = new Schema<Restaurant>({
   lat: { type: String, required: true },
   lon: { type: String, required: true },
   likeCount: { type: Number, required: true },
-  imageSrc: { type: String, required: true },
+  imageSrc: { type: String, required: false },
   street: { type: String, required: true },
   zipCode: { type: String, required: true },
   description: { type: String, required: false },
