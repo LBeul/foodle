@@ -22,7 +22,7 @@ const LikeButton = ({ likeCount }: PropTypes) => {
   };
 
   return (
-    <HStack>
+    <HStack minW={16} justify={'space-between'}>
       <IconButton
         variant='outline'
         colorScheme='purple'
