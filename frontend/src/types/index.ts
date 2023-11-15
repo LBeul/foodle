@@ -18,3 +18,9 @@ export interface User {
   password: string;
   isAdmin: boolean;
 }
+
+export interface NavItem {
+  label: string;
+  subLabel?: string;
+  href: string;
+}

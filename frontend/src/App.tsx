@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import RestaurantsList from './components/RestaurantsList/RestaurantsList';
-import { Heading, Spinner, VStack } from '@chakra-ui/react';
+import { Spinner, VStack } from '@chakra-ui/react';
+import NavBar from './components/NavBar';
 
 function App() {
   const [restaurants, setRestaurants] = useState([]);
@@ -20,17 +21,15 @@ function App() {
 
   return (
     <main>
+      <NavBar />
       <VStack w='80%' mx='auto'>
-        <Heading my={4}>Foodle</Heading>
-
         {restaurants.length ? (
           <RestaurantsList restaurants={restaurants} />
         ) : (
           <Spinner
             thickness='4px'
             speed='0.65s'
-            emptyColor='purple.100'
-            color='purple.500'
+            colorScheme='purple'
             size='xl'
           />
         )}

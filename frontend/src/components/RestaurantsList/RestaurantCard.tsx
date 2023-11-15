@@ -24,7 +24,7 @@ const RestaurantCard = ({ restaurant }: PropTypes) => {
     <Card
       direction={{ base: 'column', sm: 'row' }}
       overflow='hidden'
-      variant='outline'
+      variant='filled'
       mb={{ base: 8, sm: 4 }}
     >
       <AspectRatio
@@ -32,7 +32,12 @@ const RestaurantCard = ({ restaurant }: PropTypes) => {
         minW={{ base: '100%', sm: '200px' }}
         minH={{ base: '200px', sm: '100%' }}
       >
-        <Image objectFit='cover' src={imageSrc} alt='Caffe Latte' />
+        <Image
+          objectFit='cover'
+          src={imageSrc}
+          alt={`Image of ${title}`}
+          fallbackSrc='./placeholder.png'
+        />
       </AspectRatio>
       <Stack w='100%'>
         <CardBody>
