@@ -5,24 +5,27 @@ import {
   Card,
   CardBody,
   CardFooter,
+  HStack,
   Heading,
   Image,
   Stack,
   Text,
 } from '@chakra-ui/react';
+import LikeButton from '../atoms/LikeButton';
 
 interface PropTypes {
   restaurant: Restaurant;
 }
 
 const RestaurantCard = ({ restaurant }: PropTypes) => {
-  const { title, description, imageSrc } = restaurant;
+  const { title, description, imageSrc, likeCount } = restaurant;
 
   return (
     <Card
       direction={{ base: 'column', sm: 'row' }}
       overflow='hidden'
       variant='outline'
+      mb={{ base: 8, sm: 4 }}
     >
       <AspectRatio
         ratio={1}
@@ -31,16 +34,19 @@ const RestaurantCard = ({ restaurant }: PropTypes) => {
       >
         <Image objectFit='cover' src={imageSrc} alt='Caffe Latte' />
       </AspectRatio>
-      <Stack>
+      <Stack w='100%'>
         <CardBody>
           <Heading size='md'>{title}</Heading>
           <Text py='2'>{description}</Text>
         </CardBody>
 
         <CardFooter>
-          <Button variant='solid' colorScheme='purple'>
-            More info
-          </Button>
+          <HStack justifyContent='space-between' w='100%'>
+            <Button variant='solid' colorScheme='purple'>
+              More info
+            </Button>
+            {likeCount !== undefined && <LikeButton likeCount={likeCount} />}
+          </HStack>
         </CardFooter>
       </Stack>
     </Card>
