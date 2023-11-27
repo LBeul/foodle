@@ -18,7 +18,8 @@ interface PropTypes {
 }
 
 const RestaurantCard = ({ restaurant }: PropTypes) => {
-  const { title, description, imageSrc, likeCount } = restaurant;
+  const { title, description, imageSrc, likeCount, street, zipCode } =
+    restaurant;
 
   return (
     <Card
@@ -34,15 +35,24 @@ const RestaurantCard = ({ restaurant }: PropTypes) => {
       >
         <Image
           objectFit='cover'
-          src={imageSrc}
+          src={imageSrc ?? './placeholder.png'}
           alt={`Image of ${title}`}
-          fallbackSrc='./placeholder.png'
         />
       </AspectRatio>
       <Stack w='100%'>
         <CardBody>
           <Heading size='md'>{title}</Heading>
-          <Text py='2'>{description}</Text>
+          <Text
+            fontWeight={600}
+            color='purple.400'
+            textTransform='uppercase'
+            fontSize={14}
+            style={{ letterSpacing: '0.05em' }}
+            py='2'
+          >
+            {street} | {zipCode} Berlin
+          </Text>
+          <Text>{description}</Text>
         </CardBody>
 
         <CardFooter>
