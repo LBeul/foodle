@@ -2,9 +2,10 @@ import { useEffect, useState } from 'react';
 import RestaurantsList from './components/RestaurantsList/RestaurantsList';
 import { Spinner, VStack } from '@chakra-ui/react';
 import NavBar from './components/NavBar';
+import { Restaurant } from './types';
 
 function App() {
-  const [restaurants, setRestaurants] = useState([]);
+  const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
 
   useEffect(() => {
     const fetchRestaurants = async () => {
@@ -26,12 +27,7 @@ function App() {
         {restaurants.length ? (
           <RestaurantsList restaurants={restaurants} />
         ) : (
-          <Spinner
-            thickness='4px'
-            speed='0.65s'
-            colorScheme='purple'
-            size='xl'
-          />
+          <Spinner thickness='4px' speed='0.65s' color='purple.400' size='xl' />
         )}
       </VStack>
     </main>

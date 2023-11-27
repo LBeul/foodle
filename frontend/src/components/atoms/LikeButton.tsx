@@ -8,8 +8,8 @@ interface PropTypes {
 }
 
 const LikeButton = ({ likeCount }: PropTypes) => {
-  const [isLiked, setIsLiked] = useState(false);
-  const [likes, setLikes] = useState(likeCount);
+  const [isLiked, setIsLiked] = useState<boolean>(false);
+  const [likes, setLikes] = useState<number>(likeCount);
 
   const clickLikeButton = () => {
     if (likes === undefined) return;
