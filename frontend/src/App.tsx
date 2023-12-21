@@ -1,33 +1,47 @@
-import { useEffect, useState } from 'react';
 import RestaurantsList from './components/RestaurantsList/RestaurantsList';
-import { Spinner, VStack } from '@chakra-ui/react';
+import {
+  Alert,
+  AlertDescription,
+  AlertIcon,
+  AlertTitle,
+  Box,
+  Spinner,
+  VStack,
+} from '@chakra-ui/react';
 import NavBar from './components/NavBar';
-import { Restaurant } from './types';
+import useRestaurants from './hooks/useRestaurants';
+import { useEffect } from 'react';
 
 function App() {
-  const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
+  const { restaurants, error, state, refresh } = useRestaurants();
 
   useEffect(() => {
-    const fetchRestaurants = async () => {
-      try {
-        const response = await fetch('http://localhost:3003/api/restaurants');
-        const restaurants = await response.json();
-        setRestaurants(restaurants);
-      } catch (err) {
-        console.error(err);
-      }
+    const interval = setInterval(() => {
+      refresh();
+    }, 60 * 1000);
+    return () => {
+      clearInterval(interval);
     };
-    fetchRestaurants();
-  }, []);
+  }, [refresh]);
 
   return (
     <main>
       <NavBar />
       <VStack w='80%' mx='auto'>
-        {restaurants.length ? (
-          <RestaurantsList restaurants={restaurants} />
-        ) : (
+        {state === 'loading' ? (
           <Spinner thickness='4px' speed='0.65s' color='purple.400' size='xl' />
+        ) : (
+          <Box>
+            {state === 'error' ? (
+              <Alert status='error'>
+                <AlertIcon />
+                <AlertTitle>Error!</AlertTitle>
+                <AlertDescription>{error?.message}</AlertDescription>
+              </Alert>
+            ) : (
+              <RestaurantsList restaurants={restaurants} />
+            )}
+          </Box>
         )}
       </VStack>
     </main>
