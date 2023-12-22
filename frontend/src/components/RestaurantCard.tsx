@@ -11,14 +11,14 @@ import {
   Stack,
   Text,
 } from '@chakra-ui/react';
-import LikeButton from '../atoms/LikeButton';
+import LikeButton from '@/components/LikeButton';
 
 interface PropTypes {
   restaurant: Restaurant;
 }
 
 const RestaurantCard = ({ restaurant }: PropTypes) => {
-  const { title, description, imageSrc, likeCount, street, zipCode } =
+  const { title, description, imageSrc, likeCount, street, zipCode, id } =
     restaurant;
 
   return (
@@ -57,8 +57,13 @@ const RestaurantCard = ({ restaurant }: PropTypes) => {
 
         <CardFooter>
           <HStack justifyContent='space-between' w='100%'>
-            <Button variant='solid' colorScheme='purple'>
-              More info
+            <Button
+              variant='solid'
+              colorScheme='purple'
+              as='a'
+              href={`/restaurants/${id}`}
+            >
+              Details
             </Button>
             {likeCount !== undefined && <LikeButton likeCount={likeCount} />}
           </HStack>

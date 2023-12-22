@@ -28,11 +28,11 @@ export default function NavBar(): ReactElement {
   const NavItems: NavItem[] = [
     {
       label: 'Home',
-      href: '#',
+      href: '/',
     },
     {
-      label: 'Account',
-      href: '#',
+      label: 'About',
+      href: '/about',
     },
     {
       label: 'News',

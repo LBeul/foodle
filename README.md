@@ -15,6 +15,7 @@
 
 - React+Typescript, bundled with `vite`
 - Styling via `ChakraUI`
+- Routing via `React ROuter`
 - Icons from `react-icons`
 
 ## :floppy_disk: Backend

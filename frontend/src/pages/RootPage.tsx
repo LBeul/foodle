@@ -1,18 +1,16 @@
-import RestaurantsList from './components/RestaurantsList/RestaurantsList';
+import RestaurantsList from '@/components/RestaurantsList';
+import useRestaurants from '@/hooks/useRestaurants';
 import {
   Alert,
   AlertDescription,
   AlertIcon,
   AlertTitle,
-  Box,
   Spinner,
   VStack,
 } from '@chakra-ui/react';
-import NavBar from './components/NavBar';
-import useRestaurants from './hooks/useRestaurants';
 import { useEffect } from 'react';
 
-function App() {
+function RootPage() {
   const { restaurants, error, state, refresh } = useRestaurants();
 
   useEffect(() => {
@@ -26,12 +24,11 @@ function App() {
 
   return (
     <main>
-      <NavBar />
       <VStack w='80%' mx='auto'>
         {state === 'loading' ? (
           <Spinner thickness='4px' speed='0.65s' color='purple.400' size='xl' />
         ) : (
-          <Box>
+          <>
             {state === 'error' ? (
               <Alert status='error'>
                 <AlertIcon />
@@ -41,11 +38,11 @@ function App() {
             ) : (
               <RestaurantsList restaurants={restaurants} />
             )}
-          </Box>
+          </>
         )}
       </VStack>
     </main>
   );
 }
 
-export default App;
+export default RootPage;
