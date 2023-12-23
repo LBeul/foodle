@@ -14,7 +14,7 @@ import { FaRoad, FaCity } from 'react-icons/fa';
 
 function RestaurantDetailsPage() {
   const { restaurant } = useLoaderData() as { restaurant: Restaurant };
-  const { title, description, imageSrc, street, zipCode } = restaurant;
+  const { title, description, imageSrc, street, zipCode, id } = restaurant;
   return (
     <main>
       <VStack w='80%' mx='auto' align='start'>
@@ -55,7 +55,7 @@ function RestaurantDetailsPage() {
                 variant='outline'
                 colorScheme='purple'
                 as='a'
-                href={'#'}
+                href={`/edit/${id}`}
                 w={150}
               >
                 Bearbeiten

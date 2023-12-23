@@ -10,6 +10,7 @@ import Footer from './components/Footer';
 import ErrorPage from './pages/ErrorPage';
 import RestaurantDetailsPage from './pages/RestaurantPage';
 import restaurantLoader from './loaders/restaurantLoader';
+import EditPage from './pages/EditPage';
 
 const router = createBrowserRouter([
   { path: '/', element: <RootPage />, errorElement: <ErrorPage /> },
@@ -17,6 +18,12 @@ const router = createBrowserRouter([
   {
     path: '/restaurants/:id',
     element: <RestaurantDetailsPage />,
+    // @ts-expect-error: React Router internal type issues
+    loader: restaurantLoader,
+  },
+  {
+    path: '/edit/:id',
+    element: <EditPage />,
     // @ts-expect-error: React Router internal type issues
     loader: restaurantLoader,
   },
