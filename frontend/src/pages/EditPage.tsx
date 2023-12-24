@@ -7,6 +7,7 @@ import {
   AlertIcon,
   AlertTitle,
   Button,
+  HStack,
   Heading,
   Image,
   Text,
@@ -142,15 +143,24 @@ function EditPage() {
                   },
                 })}
               />
-              <Button
-                mt={4}
-                colorScheme='purple'
-                isLoading={isSubmitting || isLoading}
-                isDisabled={hasErrors}
-                type='submit'
-              >
-                Speichern
-              </Button>
+              <HStack mt={4} justify='space-between'>
+                <Button
+                  colorScheme='purple'
+                  isLoading={isSubmitting || isLoading}
+                  isDisabled={hasErrors}
+                  type='submit'
+                >
+                  Speichern
+                </Button>
+                <Button
+                  colorScheme='purple'
+                  variant='outline'
+                  onClick={() => navigate(`/restaurants/${defaults.id}`)}
+                  type='submit'
+                >
+                  Zurück
+                </Button>
+              </HStack>
             </form>
           </VStack>
         </VStack>
