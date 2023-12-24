@@ -1,9 +1,9 @@
-import { Restaurant, RestaurantWithoutCoords } from '../types';
+import { Restaurant, RestaurantPayload } from '../types';
 
 const baseUrl = 'https://nominatim.openstreetmap.org';
 
 const completeAddress = async (
-  locationWithoutCoords: RestaurantWithoutCoords
+  locationWithoutCoords: RestaurantPayload
 ): Promise<Restaurant> => {
   const { street, zipCode } = locationWithoutCoords;
   const addressString = `${street}, ${zipCode} Berlin`;

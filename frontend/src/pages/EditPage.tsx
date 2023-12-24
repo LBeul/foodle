@@ -1,5 +1,5 @@
 import ValidatedInput from '@/components/ValidatedInput';
-import { FormInputs, Restaurant, RestaurantWithoutCoords } from '@/types';
+import { FormInputs, Restaurant, RestaurantPayload } from '@/types';
 import {
   Button,
   HStack,
@@ -29,7 +29,7 @@ function EditPage() {
   const hasErrors = Object.keys(errors).length > 0;
 
   const onSubmit: SubmitHandler<FormInputs> = async (data: FormInputs) => {
-    const payload: RestaurantWithoutCoords = { ...defaults, ...data };
+    const payload: RestaurantPayload = { ...defaults, ...data };
     try {
       await fetch(`http://localhost:3003/api/restaurants/${defaults.id}`, {
         method: 'PUT',

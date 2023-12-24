@@ -1,9 +1,9 @@
-export interface Restaurant extends RestaurantWithoutCoords {
+export interface Restaurant extends RestaurantPayload {
   lat: string;
   lon: string;
 }
 
-export interface RestaurantWithoutCoords {
+export interface RestaurantPayload {
   id: string;
   title: string;
   likeCount?: number;
