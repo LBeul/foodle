@@ -1,30 +1,22 @@
 import ValidatedInput from '@/components/ValidatedInput';
-import { RestaurantWithoutCoords } from '@/types';
+import { FormInputs, RestaurantWithoutCoords } from '@/types';
 import { Button, HStack, Heading, VStack, useToast } from '@chakra-ui/react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
-
-type Inputs = {
-  title: string;
-  street: string;
-  description: string;
-  zipCode: string;
-  imageSrc: string;
-};
 
 function CreatePage() {
   const {
     handleSubmit,
     register,
     formState: { errors, isSubmitting },
-  } = useForm<Inputs>();
+  } = useForm<FormInputs>();
   const toast = useToast();
 
   const navigate = useNavigate();
 
   const hasErrors = Object.keys(errors).length > 0;
 
-  const onSubmit: SubmitHandler<Inputs> = async (data: Inputs) => {
+  const onSubmit: SubmitHandler<FormInputs> = async (data: FormInputs) => {
     const payload: Omit<RestaurantWithoutCoords, 'id'> = data;
     try {
       const response = await fetch('http://localhost:3003/api/restaurants/', {

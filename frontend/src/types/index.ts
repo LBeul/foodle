@@ -24,3 +24,11 @@ export interface NavItem {
   subLabel?: string;
   href: string;
 }
+
+export interface FormInputs {
+  title: string;
+  street: string;
+  description: string;
+  zipCode: string;
+  imageSrc: string;
+}

@@ -1,5 +1,5 @@
 import ValidatedInput from '@/components/ValidatedInput';
-import { Restaurant, RestaurantWithoutCoords } from '@/types';
+import { FormInputs, Restaurant, RestaurantWithoutCoords } from '@/types';
 import {
   Button,
   HStack,
@@ -13,13 +13,6 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
 import { useLoaderData } from 'react-router';
 
-type Inputs = {
-  title: string;
-  street: string;
-  description: string;
-  zipCode: string;
-};
-
 function EditPage() {
   const { restaurant: defaults } = useLoaderData() as {
     restaurant: Restaurant;
@@ -28,14 +21,14 @@ function EditPage() {
     handleSubmit,
     register,
     formState: { errors, isSubmitting },
-  } = useForm<Inputs>();
+  } = useForm<FormInputs>();
   const toast = useToast();
 
   const navigate = useNavigate();
 
   const hasErrors = Object.keys(errors).length > 0;
 
-  const onSubmit: SubmitHandler<Inputs> = async (data: Inputs) => {
+  const onSubmit: SubmitHandler<FormInputs> = async (data: FormInputs) => {
     const payload: RestaurantWithoutCoords = { ...defaults, ...data };
     try {
       await fetch(`http://localhost:3003/api/restaurants/${defaults.id}`, {
@@ -96,6 +89,21 @@ function EditPage() {
                   minLength: {
                     value: 3,
                     message: 'Titel muss mindestens 3 Zeichen lang sein',
+                  },
+                })}
+              />
+              <ValidatedInput
+                id='imageSrc'
+                label='Bild-Link'
+                errors={errors}
+                defaultValue={defaults.imageSrc}
+                errorMsg={errors?.imageSrc?.message}
+                registerReturn={register('imageSrc', {
+                  required: 'Pflichtangabe',
+                  pattern: {
+                    value:
+                      /[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)?/gi,
+                    message: 'Bitte einen valide HTTP/HTTPS URL angeben',
                   },
                 })}
               />
