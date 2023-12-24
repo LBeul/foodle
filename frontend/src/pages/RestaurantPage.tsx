@@ -9,12 +9,15 @@ import {
   Text,
   VStack,
 } from '@chakra-ui/react';
-import { useLoaderData } from 'react-router';
+import { useLoaderData, useNavigate } from 'react-router';
 import { FaRoad, FaCity } from 'react-icons/fa';
+import useDelete from '@/hooks/api/useDelete';
 
 function RestaurantDetailsPage() {
   const { restaurant } = useLoaderData() as { restaurant: Restaurant };
   const { title, description, imageSrc, street, zipCode, id } = restaurant;
+  const { deleteItem, isLoading } = useDelete(id);
+  const navigate = useNavigate();
   return (
     <main>
       <VStack w='80%' mx='auto' align='start'>
@@ -61,6 +64,11 @@ function RestaurantDetailsPage() {
                 Bearbeiten
               </Button>
               <Button
+                isLoading={isLoading}
+                onClick={() => {
+                  deleteItem();
+                  navigate('/restaurants');
+                }}
                 variant='outline'
                 colorScheme='red'
                 as='a'

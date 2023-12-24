@@ -1,5 +1,5 @@
 import ValidatedInput from '@/components/ValidatedInput';
-import usePut from '@/hooks/usePut';
+import usePut from '@/hooks/api/usePut';
 import { Restaurant, RestaurantWithoutCoords } from '@/types';
 import {
   Alert,
@@ -39,15 +39,15 @@ function EditPage() {
 
   const navigate = useNavigate();
 
-  const { put, isLoading, error } = usePut(defaults.id);
+  const { put, isLoading, error: putError } = usePut(defaults.id);
 
   const hasErrors = Object.keys(errors).length > 0;
 
   const onSubmit: SubmitHandler<Inputs> = async (data: Inputs) => {
     const payload: RestaurantWithoutCoords = { ...defaults, ...data };
     await put(payload);
-    if (error) {
-      setSubmitError(error.message);
+    if (putError) {
+      setSubmitError(putError.message);
     } else {
       console.log('Success!');
       navigate(`/restaurants/${defaults.id}`);
