@@ -76,14 +76,10 @@ restaurantsRouter.put(
       description,
     });
     try {
-      const updatedRestaurant = RestaurantModel.findByIdAndUpdate(
+      const updatedRestaurant = await RestaurantModel.findByIdAndUpdate(
         request.params.id,
         restaurant,
-        {
-          new: true,
-          runValidators: true,
-          context: 'query',
-        }
+        { new: true, runValidators: true, context: 'query' }
       );
       response.json(updatedRestaurant);
     } catch (error) {
