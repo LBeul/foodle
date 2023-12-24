@@ -14,18 +14,20 @@ import EditPage from './pages/EditPage';
 
 const router = createBrowserRouter([
   { path: '/', element: <RootPage />, errorElement: <ErrorPage /> },
-  { path: '/about', element: <AboutPage /> },
+  { path: '/about', element: <AboutPage />, errorElement: <ErrorPage /> },
   {
     path: '/restaurants/:id',
     element: <RestaurantDetailsPage />,
     // @ts-expect-error: React Router internal type issues
     loader: restaurantLoader,
+    errorElement: <ErrorPage />,
   },
   {
     path: '/edit/:id',
     element: <EditPage />,
     // @ts-expect-error: React Router internal type issues
     loader: restaurantLoader,
+    errorElement: <ErrorPage />,
   },
 ]);
 
