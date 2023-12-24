@@ -11,6 +11,7 @@ import ErrorPage from './pages/ErrorPage';
 import RestaurantDetailsPage from './pages/RestaurantPage';
 import restaurantLoader from './loaders/restaurantLoader';
 import EditPage from './pages/EditPage';
+import CreatePage from './pages/CreatePage';
 
 const router = createBrowserRouter([
   { path: '/', element: <RootPage />, errorElement: <ErrorPage /> },
@@ -27,6 +28,11 @@ const router = createBrowserRouter([
     element: <EditPage />,
     // @ts-expect-error: React Router internal type issues
     loader: restaurantLoader,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: '/new-restaurant',
+    element: <CreatePage />,
     errorElement: <ErrorPage />,
   },
 ]);
