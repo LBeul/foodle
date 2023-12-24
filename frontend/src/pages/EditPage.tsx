@@ -1,7 +1,20 @@
 import ValidatedInput from '@/components/ValidatedInput';
-import { Restaurant } from '@/types';
-import { Button, Heading, Image, Text, VStack } from '@chakra-ui/react';
+import usePut from '@/hooks/usePut';
+import { Restaurant, RestaurantWithoutCoords } from '@/types';
+import {
+  Alert,
+  AlertDescription,
+  AlertIcon,
+  AlertTitle,
+  Button,
+  Heading,
+  Image,
+  Text,
+  VStack,
+} from '@chakra-ui/react';
+import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router';
 import { useLoaderData } from 'react-router';
 
 type Inputs = {
@@ -12,20 +25,33 @@ type Inputs = {
 };
 
 function EditPage() {
-  const { restaurant } = useLoaderData() as { restaurant: Restaurant };
-  const defaultValues = restaurant;
+  const [submitError, setSubmitError] = useState<string | null>(null);
+  const { restaurant: defaults } = useLoaderData() as {
+    restaurant: Restaurant;
+  };
+
   const {
     handleSubmit,
     register,
-    // watch,
     formState: { errors, isSubmitting },
   } = useForm<Inputs>();
 
+  const navigate = useNavigate();
+
+  const { put, isLoading, error } = usePut(defaults.id);
+
   const hasErrors = Object.keys(errors).length > 0;
 
-  const onSubmit: SubmitHandler<Inputs> = (data: Inputs) => console.log(data);
-
-  // console.log(watch('title'));
+  const onSubmit: SubmitHandler<Inputs> = async (data: Inputs) => {
+    const payload: RestaurantWithoutCoords = { ...defaults, ...data };
+    await put(payload);
+    if (error) {
+      setSubmitError(error.message);
+    } else {
+      console.log('Success!');
+      navigate(`/restaurants/${defaults.id}`);
+    }
+  };
 
   return (
     <main>
@@ -35,9 +61,16 @@ function EditPage() {
           height={{ base: 100, sm: 300 }}
           borderRadius='lg'
           objectFit='cover'
-          src={defaultValues.imageSrc ?? './placeholder.png'}
-          alt={`Image of ${defaultValues.title}`}
+          src={defaults.imageSrc ?? './placeholder.png'}
+          alt={`Image of ${defaults.title}`}
         />
+        {submitError && (
+          <Alert status='error'>
+            <AlertIcon />
+            <AlertTitle>Ooops!</AlertTitle>
+            <AlertDescription>{submitError}</AlertDescription>
+          </Alert>
+        )}
         <VStack
           direction={{ base: 'column', sm: 'row' }}
           align='start'
@@ -46,7 +79,7 @@ function EditPage() {
         >
           <VStack align='start' spacing={4}>
             <Heading>
-              {defaultValues.title}{' '}
+              {defaults.title}{' '}
               <Text as='span' fontWeight={400}>
                 bearbeiten
               </Text>
@@ -56,7 +89,7 @@ function EditPage() {
                 id='title'
                 label='Titel'
                 errors={errors}
-                defaultValue={defaultValues.title}
+                defaultValue={defaults.title}
                 errorMsg={errors?.title?.message}
                 registerReturn={register('title', {
                   required: 'Pflichtangabe',
@@ -70,7 +103,7 @@ function EditPage() {
                 id='street'
                 label='Straße'
                 errors={errors}
-                defaultValue={defaultValues.street}
+                defaultValue={defaults.street}
                 errorMsg={errors?.street?.message}
                 registerReturn={register('street', {
                   required: 'Pflichtangabe',
@@ -84,7 +117,7 @@ function EditPage() {
                 id='zipCode'
                 label='Postleitzahl'
                 errors={errors}
-                defaultValue={defaultValues.zipCode}
+                defaultValue={defaults.zipCode}
                 errorMsg={errors?.zipCode?.message}
                 registerReturn={register('zipCode', {
                   required: 'Pflichtangabe',
@@ -99,7 +132,7 @@ function EditPage() {
                 id='description'
                 label='Beschreibung'
                 errors={errors}
-                defaultValue={defaultValues.description}
+                defaultValue={defaults.description}
                 errorMsg={errors?.description?.message}
                 registerReturn={register('description', {
                   required: 'Pflichtangabe',
@@ -112,7 +145,7 @@ function EditPage() {
               <Button
                 mt={4}
                 colorScheme='purple'
-                isLoading={isSubmitting}
+                isLoading={isSubmitting || isLoading}
                 isDisabled={hasErrors}
                 type='submit'
               >
