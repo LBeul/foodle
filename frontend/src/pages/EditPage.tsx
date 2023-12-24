@@ -1,19 +1,14 @@
 import ValidatedInput from '@/components/ValidatedInput';
-import usePut from '@/hooks/api/usePut';
 import { Restaurant, RestaurantWithoutCoords } from '@/types';
 import {
-  Alert,
-  AlertDescription,
-  AlertIcon,
-  AlertTitle,
   Button,
   HStack,
   Heading,
   Image,
   Text,
   VStack,
+  useToast,
 } from '@chakra-ui/react';
-import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
 import { useLoaderData } from 'react-router';
@@ -26,31 +21,42 @@ type Inputs = {
 };
 
 function EditPage() {
-  const [submitError, setSubmitError] = useState<string | null>(null);
   const { restaurant: defaults } = useLoaderData() as {
     restaurant: Restaurant;
   };
-
   const {
     handleSubmit,
     register,
     formState: { errors, isSubmitting },
   } = useForm<Inputs>();
+  const toast = useToast();
 
   const navigate = useNavigate();
-
-  const { put, isLoading, error: putError } = usePut(defaults.id);
 
   const hasErrors = Object.keys(errors).length > 0;
 
   const onSubmit: SubmitHandler<Inputs> = async (data: Inputs) => {
     const payload: RestaurantWithoutCoords = { ...defaults, ...data };
-    await put(payload);
-    if (putError) {
-      setSubmitError(putError.message);
-    } else {
-      console.log('Success!');
+    try {
+      await fetch(`http://localhost:3003/api/restaurants/${defaults.id}`, {
+        method: 'PUT',
+        mode: 'cors',
+        cache: 'no-cache',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
       navigate(`/restaurants/${defaults.id}`);
+    } catch (error) {
+      if (error instanceof Error) {
+        toast({
+          title: 'Ooops!',
+          description: 'Änderung konnte nicht gesendet werden!',
+          position: 'top',
+          status: 'error',
+          duration: 5000,
+          isClosable: true,
+        });
+      }
     }
   };
 
@@ -65,13 +71,6 @@ function EditPage() {
           src={defaults.imageSrc ?? './placeholder.png'}
           alt={`Image of ${defaults.title}`}
         />
-        {submitError && (
-          <Alert status='error'>
-            <AlertIcon />
-            <AlertTitle>Ooops!</AlertTitle>
-            <AlertDescription>{submitError}</AlertDescription>
-          </Alert>
-        )}
         <VStack
           direction={{ base: 'column', sm: 'row' }}
           align='start'
@@ -146,7 +145,7 @@ function EditPage() {
               <HStack mt={4} justify='space-between'>
                 <Button
                   colorScheme='purple'
-                  isLoading={isSubmitting || isLoading}
+                  isLoading={isSubmitting}
                   isDisabled={hasErrors}
                   type='submit'
                 >

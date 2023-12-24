@@ -8,16 +8,38 @@ import {
   Image,
   Text,
   VStack,
+  useToast,
 } from '@chakra-ui/react';
 import { useLoaderData, useNavigate } from 'react-router';
 import { FaRoad, FaCity } from 'react-icons/fa';
-import useDelete from '@/hooks/api/useDelete';
 
 function RestaurantDetailsPage() {
   const { restaurant } = useLoaderData() as { restaurant: Restaurant };
   const { title, description, imageSrc, street, zipCode, id } = restaurant;
-  const { deleteItem, isLoading } = useDelete(id);
   const navigate = useNavigate();
+  const toast = useToast();
+
+  const deleteRestaurant = async () => {
+    try {
+      await fetch(`http://localhost:3003/api/restaurants/${id}`, {
+        method: 'DELETE',
+        mode: 'cors',
+      });
+      navigate('/restaurants');
+    } catch (error) {
+      if (error instanceof Error) {
+        toast({
+          title: 'Ooops!',
+          description: `"${title}" konnte nicht gelöscht werden!`,
+          position: 'top',
+          status: 'error',
+          duration: 5000,
+          isClosable: true,
+        });
+      }
+    }
+  };
+
   return (
     <main>
       <VStack w='80%' mx='auto' align='start'>
@@ -64,15 +86,10 @@ function RestaurantDetailsPage() {
                 Bearbeiten
               </Button>
               <Button
-                isLoading={isLoading}
-                onClick={() => {
-                  deleteItem();
-                  navigate('/restaurants');
-                }}
+                onClick={deleteRestaurant}
                 variant='outline'
                 colorScheme='red'
                 as='a'
-                href={'#'}
                 w={150}
               >
                 Löschen
