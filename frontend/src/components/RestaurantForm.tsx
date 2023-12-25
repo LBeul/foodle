@@ -1,16 +1,63 @@
-import { FieldErrors, UseFormRegister } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import ValidatedInput from './ValidatedInput';
-import { FormInputs, Restaurant } from '@/types';
+import { FormInputs, Restaurant, RestaurantPayload } from '@/types';
+import { Button, Toast } from '@chakra-ui/react';
+import { useNavigate } from 'react-router';
 
 interface FormProps {
-  errors: FieldErrors<FormInputs>;
   defaults?: Restaurant;
-  register: UseFormRegister<FormInputs>;
+  method: 'POST' | 'PUT';
+  id?: string;
 }
 
-const RestaurantForm = ({ errors, defaults, register }: FormProps) => {
+const RestaurantForm = ({ defaults, method, id }: FormProps) => {
+  const {
+    handleSubmit,
+    register,
+    formState: { errors, isSubmitting },
+  } = useForm<FormInputs>();
+
+  const hasErrors = Object.keys(errors).length > 0;
+
+  const navigate = useNavigate();
+
+  const url =
+    method === 'POST'
+      ? 'http://localhost:3003/api/restaurants/'
+      : `http://localhost:3003/api/restaurants/${id}`;
+
+  const onSubmit: SubmitHandler<FormInputs> = async (data: FormInputs) => {
+    const payload: Omit<RestaurantPayload, 'id'> | RestaurantPayload = data;
+    try {
+      const response = await fetch(url, {
+        method,
+        mode: 'cors',
+        cache: 'no-cache',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      const restaurant = await response.json();
+      const { id } = restaurant;
+      navigate(`/restaurants/${id}`);
+    } catch (error) {
+      if (error instanceof Error) {
+        Toast({
+          title: 'Ooops!',
+          description:
+            method === 'POST'
+              ? 'Restaurant konnte nicht angelegt werden!'
+              : `${payload.title} konnte nicht geändert werden!`,
+          position: 'top',
+          status: 'error',
+          duration: 5000,
+          isClosable: true,
+        });
+      }
+    }
+  };
+
   return (
-    <>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <ValidatedInput
         id='title'
         label='Titel'
@@ -83,7 +130,23 @@ const RestaurantForm = ({ errors, defaults, register }: FormProps) => {
           },
         })}
       />
-    </>
+      <Button
+        colorScheme='purple'
+        isLoading={isSubmitting}
+        isDisabled={hasErrors}
+        type='submit'
+      >
+        Speichern
+      </Button>
+      <Button
+        colorScheme='purple'
+        variant='outline'
+        onClick={() => navigate('/restaurants/')}
+        type='submit'
+      >
+        Zurück
+      </Button>
+    </form>
   );
 };
 
