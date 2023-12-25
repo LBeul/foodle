@@ -25,7 +25,7 @@ function RestaurantDetailsPage() {
         method: 'DELETE',
         mode: 'cors',
       });
-      navigate('/restaurants');
+      navigate('/');
     } catch (error) {
       if (error instanceof Error) {
         toast({
