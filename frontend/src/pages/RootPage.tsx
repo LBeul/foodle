@@ -7,6 +7,7 @@ import {
   AlertTitle,
   Button,
   Spinner,
+  Text,
   VStack,
 } from '@chakra-ui/react';
 import { useEffect } from 'react';
@@ -27,7 +28,15 @@ function RootPage() {
     <main>
       <VStack w='80%' mx='auto'>
         {state === 'loading' ? (
-          <Spinner thickness='4px' speed='0.65s' color='purple.400' size='xl' />
+          <>
+            <Text mb={5}>Loading Items</Text>
+            <Spinner
+              thickness='4px'
+              speed='0.65s'
+              color='purple.400'
+              size='xl'
+            />
+          </>
         ) : (
           <>
             {state === 'error' ? (
@@ -39,7 +48,12 @@ function RootPage() {
             ) : (
               <RestaurantsList restaurants={restaurants} />
             )}
-            <Button as='a' href='/new-restaurant'>
+            <Button
+              as='a'
+              href='/new-restaurant'
+              colorScheme='purple'
+              variant='outline'
+            >
               Restaurant hinzufügen
             </Button>
           </>
