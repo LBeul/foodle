@@ -1,7 +1,7 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 import ValidatedInput from './ValidatedInput';
 import { FormInputs, Restaurant, RestaurantPayload } from '@/types';
-import { Button, Toast } from '@chakra-ui/react';
+import { Button, useToast } from '@chakra-ui/react';
 import { useNavigate } from 'react-router';
 
 interface FormProps {
@@ -21,6 +21,8 @@ const RestaurantForm = ({ defaults, method, id }: FormProps) => {
 
   const navigate = useNavigate();
 
+  const toast = useToast();
+
   const url =
     method === 'POST'
       ? 'http://localhost:3003/api/restaurants/'
@@ -39,9 +41,19 @@ const RestaurantForm = ({ defaults, method, id }: FormProps) => {
       const restaurant = await response.json();
       const { id } = restaurant;
       navigate(`/restaurants/${id}`);
+      toast({
+        title: 'All right!',
+        description: `Restaurant wurde erfolgreich ${
+          method === 'POST' ? 'angelegt' : 'aktualisiert'
+        }`,
+        position: 'top',
+        status: 'success',
+        duration: 5000,
+        isClosable: true,
+      });
     } catch (error) {
       if (error instanceof Error) {
-        Toast({
+        toast({
           title: 'Ooops!',
           description:
             method === 'POST'
