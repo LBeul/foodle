@@ -141,7 +141,7 @@ const RestaurantForm = ({ defaults, method, id }: FormProps) => {
       <Button
         colorScheme='purple'
         variant='outline'
-        onClick={() => navigate('/restaurants/')}
+        onClick={() => navigate('/')}
         type='submit'
       >
         Zurück

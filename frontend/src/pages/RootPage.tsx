@@ -5,6 +5,7 @@ import {
   AlertDescription,
   AlertIcon,
   AlertTitle,
+  Button,
   Spinner,
   VStack,
 } from '@chakra-ui/react';
@@ -38,6 +39,9 @@ function RootPage() {
             ) : (
               <RestaurantsList restaurants={restaurants} />
             )}
+            <Button as='a' href='/new-restaurant'>
+              Restaurant hinzufügen
+            </Button>
           </>
         )}
       </VStack>
