@@ -1,0 +1,1 @@
+GET http://localhost:3003/api/restaurants/655245544f24440a0c42623c

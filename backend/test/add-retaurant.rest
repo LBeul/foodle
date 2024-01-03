@@ -1,0 +1,11 @@
+POST http://localhost:3003/api/restaurants
+Content-Type: application/json
+
+{
+  "title": "Test Restaurant 002",
+  "street": "Wilhelminenhofstraße 75a",
+  "zipCode": "12459",
+  "likeCount": "0",
+  "imageSrc": "test2",
+  "description": "ahahdhasd jhasdhahs asdhjlashd"
+}
