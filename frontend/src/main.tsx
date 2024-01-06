@@ -12,6 +12,7 @@ import RestaurantDetailsPage from './pages/RestaurantPage';
 import restaurantLoader from './loaders/restaurantLoader';
 import EditPage from './pages/EditPage';
 import CreatePage from './pages/CreatePage';
+import LoginPage from './pages/LoginPage';
 
 const router = createBrowserRouter([
   { path: '/', element: <RootPage />, errorElement: <ErrorPage /> },
@@ -35,6 +36,7 @@ const router = createBrowserRouter([
     element: <CreatePage />,
     errorElement: <ErrorPage />,
   },
+  { path: '/login', element: <LoginPage />, errorElement: <ErrorPage /> },
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
