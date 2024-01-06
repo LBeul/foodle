@@ -21,7 +21,7 @@ app.use(express.json());
 app.use(morgan('tiny'));
 
 // Invoke routers
-app.use('/api/users', authRouter);
+app.use('/api/auth', authRouter);
 app.use('/api/restaurants', restaurantsRouter);
 
 app.use(errorHandler);
