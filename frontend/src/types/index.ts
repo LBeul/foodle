@@ -32,3 +32,15 @@ export interface FormInputs {
   zipCode: string;
   imageSrc: string;
 }
+
+export interface LoginCredentials {
+  username: string;
+  password: string;
+}
+
+export interface AuthResponseContent {
+  username: string;
+  token: string;
+}
+
+export type AuthStatus = 'logged-out' | AuthResponseContent;
