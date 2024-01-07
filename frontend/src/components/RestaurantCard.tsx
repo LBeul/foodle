@@ -12,6 +12,7 @@ import {
   Text,
 } from '@chakra-ui/react';
 import LikeButton from '@/components/LikeButton';
+import { Link } from 'react-router-dom';
 
 interface PropTypes {
   restaurant: Restaurant;
@@ -60,8 +61,8 @@ const RestaurantCard = ({ restaurant }: PropTypes) => {
             <Button
               variant='solid'
               colorScheme='purple'
-              as='a'
-              href={`/restaurants/${id}`}
+              as={Link}
+              to={`/restaurants/${id}`}
             >
               Details
             </Button>

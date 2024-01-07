@@ -3,6 +3,7 @@ import ValidatedInput from './ValidatedInput';
 import { FormInputs, Restaurant, RestaurantPayload } from '@/types';
 import { Button, ButtonGroup, Stack, useToast } from '@chakra-ui/react';
 import { useNavigate } from 'react-router';
+import { Link } from 'react-router-dom';
 
 interface FormProps {
   defaults?: Restaurant;
@@ -157,8 +158,8 @@ const RestaurantForm = ({ defaults, method, id }: FormProps) => {
           <Button
             colorScheme='purple'
             variant='outline'
-            onClick={() => navigate('/')}
-            type='submit'
+            as={Link}
+            to={`/restaurants/${id}`}
           >
             Zurück
           </Button>

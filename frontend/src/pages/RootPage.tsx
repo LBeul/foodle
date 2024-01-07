@@ -11,6 +11,7 @@ import {
   VStack,
 } from '@chakra-ui/react';
 import { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 function RootPage() {
   const { restaurants, error, fetchState, refresh } = useRestaurants();
@@ -48,7 +49,7 @@ function RootPage() {
             ) : (
               <>
                 <RestaurantsList restaurants={restaurants} />
-                <Button as='a' href='/new-restaurant' mb={8}>
+                <Button as={Link} to='/new-restaurant' mb={8}>
                   Restaurant hinzufügen
                 </Button>
               </>

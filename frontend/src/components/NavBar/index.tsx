@@ -34,10 +34,6 @@ export default function NavBar(): ReactElement {
       label: 'About',
       href: '/about',
     },
-    {
-      label: 'News',
-      href: '#',
-    },
   ];
 
   return (

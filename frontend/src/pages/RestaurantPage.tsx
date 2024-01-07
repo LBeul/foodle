@@ -13,6 +13,7 @@ import {
 import { useLoaderData, useNavigate } from 'react-router';
 import { FaRoad, FaCity } from 'react-icons/fa';
 import { BiSolidLike } from 'react-icons/bi';
+import { Link } from 'react-router-dom';
 
 function RestaurantDetailsPage() {
   const { restaurant } = useLoaderData() as { restaurant: Restaurant };
@@ -95,8 +96,8 @@ function RestaurantDetailsPage() {
               <Button
                 variant='outline'
                 colorScheme='purple'
-                as='a'
-                href={`/edit/${id}`}
+                as={Link}
+                to={`/edit/${id}`}
                 w={150}
               >
                 Bearbeiten
