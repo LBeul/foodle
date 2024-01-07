@@ -1,7 +1,15 @@
 import RestaurantForm from '@/components/RestaurantForm';
+import AuthAtom from '@/stores/authStore';
 import { Heading, VStack } from '@chakra-ui/react';
+import { useAtomValue } from 'jotai';
+import { Navigate } from 'react-router';
 
 function CreatePage() {
+  const { isLoggedIn } = useAtomValue(AuthAtom);
+  if (!isLoggedIn) {
+    return <Navigate to='/' replace />;
+  }
+
   return (
     <main>
       <VStack w='80%' mx='auto' align='start'>

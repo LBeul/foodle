@@ -1,5 +1,6 @@
 import RestaurantsList from '@/components/RestaurantsList';
 import useRestaurants from '@/hooks/useRestaurants';
+import AuthAtom from '@/stores/authStore';
 import {
   Alert,
   AlertDescription,
@@ -10,10 +11,13 @@ import {
   Text,
   VStack,
 } from '@chakra-ui/react';
+import { useAtomValue } from 'jotai';
 import { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 function RootPage() {
   const { restaurants, error, state, refresh } = useRestaurants();
+  const { isLoggedIn } = useAtomValue(AuthAtom);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -48,14 +52,16 @@ function RootPage() {
             ) : (
               <RestaurantsList restaurants={restaurants} />
             )}
-            <Button
-              as='a'
-              href='/new-restaurant'
-              colorScheme='purple'
-              variant='outline'
-            >
-              Restaurant hinzufügen
-            </Button>
+            {isLoggedIn && (
+              <Button
+                as={Link}
+                to='/new-restaurant'
+                colorScheme='purple'
+                variant='outline'
+              >
+                Restaurant hinzufügen
+              </Button>
+            )}
           </>
         )}
       </VStack>

@@ -1,12 +1,19 @@
 import RestaurantForm from '@/components/RestaurantForm';
+import AuthAtom from '@/stores/authStore';
 import { Restaurant } from '@/types';
 import { Heading, Image, Text, VStack } from '@chakra-ui/react';
-import { useLoaderData } from 'react-router';
+import { useAtomValue } from 'jotai';
+import { Navigate, useLoaderData } from 'react-router';
 
 function EditPage() {
   const { restaurant: defaults } = useLoaderData() as {
     restaurant: Restaurant;
   };
+
+  const { isLoggedIn } = useAtomValue(AuthAtom);
+  if (!isLoggedIn) {
+    return <Navigate to='/' replace />;
+  }
 
   return (
     <main>
