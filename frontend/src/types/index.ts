@@ -43,4 +43,8 @@ export interface AuthResponseContent {
   token: string;
 }
 
-export type AuthStatus = 'logged-out' | AuthResponseContent;
+export interface AuthStatus {
+  isLoggedIn: boolean;
+  username?: string;
+  token?: string;
+}
