@@ -12,10 +12,12 @@ import {
 } from '@chakra-ui/react';
 import { useLoaderData, useNavigate } from 'react-router';
 import { FaRoad, FaCity } from 'react-icons/fa';
+import { BiSolidLike } from 'react-icons/bi';
 
 function RestaurantDetailsPage() {
   const { restaurant } = useLoaderData() as { restaurant: Restaurant };
-  const { title, description, imageSrc, street, zipCode, id } = restaurant;
+  const { title, description, imageSrc, street, zipCode, id, likeCount } =
+    restaurant;
   const navigate = useNavigate();
   const toast = useToast();
 
@@ -25,11 +27,19 @@ function RestaurantDetailsPage() {
         method: 'DELETE',
         mode: 'cors',
       });
+      toast({
+        title: 'Erledigt!',
+        description: `"${title}" wurde gelöscht!`,
+        position: 'top',
+        status: 'info',
+        duration: 5000,
+        isClosable: true,
+      });
       navigate('/');
     } catch (error) {
       if (error instanceof Error) {
         toast({
-          title: 'Ooops!',
+          title: 'Ohoh!',
           description: `"${title}" konnte nicht gelöscht werden!`,
           position: 'top',
           status: 'error',
@@ -62,6 +72,12 @@ function RestaurantDetailsPage() {
             <Heading size={{ base: 'xl', sm: '3xl' }} textAlign='left' py={4}>
               {title}
             </Heading>
+            <HStack>
+              <Center bg='purple.400' borderRadius='full' h={8} w={8}>
+                <Icon as={BiSolidLike} h={4} w={4} fill='white' />
+              </Center>
+              <Text>Liked by {likeCount}</Text>
+            </HStack>
             <HStack>
               <Center bg='purple.400' borderRadius='full' h={8} w={8}>
                 <Icon as={FaRoad} h={4} w={4} fill='white' />

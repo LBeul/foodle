@@ -13,7 +13,7 @@ import {
 import { useEffect } from 'react';
 
 function RootPage() {
-  const { restaurants, error, state, refresh } = useRestaurants();
+  const { restaurants, error, fetchState, refresh } = useRestaurants();
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -27,9 +27,9 @@ function RootPage() {
   return (
     <main>
       <VStack w='80%' mx='auto'>
-        {state === 'loading' ? (
+        {fetchState === 'loading' ? (
           <>
-            <Text mb={5}>Loading Items</Text>
+            <Text mb={5}>Loading Items...</Text>
             <Spinner
               thickness='4px'
               speed='0.65s'
@@ -39,23 +39,20 @@ function RootPage() {
           </>
         ) : (
           <>
-            {state === 'error' ? (
+            {fetchState === 'error' ? (
               <Alert status='error'>
                 <AlertIcon />
                 <AlertTitle>Error!</AlertTitle>
                 <AlertDescription>{error?.message}</AlertDescription>
               </Alert>
             ) : (
-              <RestaurantsList restaurants={restaurants} />
+              <>
+                <RestaurantsList restaurants={restaurants} />
+                <Button as='a' href='/new-restaurant' mb={8}>
+                  Restaurant hinzufügen
+                </Button>
+              </>
             )}
-            <Button
-              as='a'
-              href='/new-restaurant'
-              colorScheme='purple'
-              variant='outline'
-            >
-              Restaurant hinzufügen
-            </Button>
           </>
         )}
       </VStack>

@@ -10,8 +10,9 @@ function CreatePage() {
           align='start'
           overflow='hidden'
           mb={{ base: 8, sm: 4 }}
+          w='100%'
         >
-          <VStack align='start' spacing={4}>
+          <VStack align='start' spacing={4} w='100%'>
             <Heading>Restaurant anlegen</Heading>
             <RestaurantForm method='POST' />
           </VStack>
