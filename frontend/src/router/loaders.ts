@@ -1,6 +1,6 @@
 import { Restaurant } from '@/types';
 
-async function restaurantLoader({ params }: { params: { id: string } }) {
+export async function restaurantLoader({ params }: { params: { id: string } }) {
   try {
     const res = await fetch(
       `http://localhost:3003/api/restaurants/${params.id}`
@@ -11,5 +11,3 @@ async function restaurantLoader({ params }: { params: { id: string } }) {
     return { restaurant: null };
   }
 }
-
-export default restaurantLoader;
