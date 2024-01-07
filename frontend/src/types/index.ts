@@ -7,7 +7,7 @@ export interface RestaurantPayload {
   id: string;
   title: string;
   likeCount?: number;
-  imageSrc: string;
+  imageSrc?: string;
   street: string;
   zipCode: string;
   description: string;
@@ -30,5 +30,7 @@ export interface FormInputs {
   street: string;
   description: string;
   zipCode: string;
-  imageSrc: string;
+  imageSrc?: string;
 }
+
+export type FetchState = 'initial' | 'loading' | 'success' | 'error';
