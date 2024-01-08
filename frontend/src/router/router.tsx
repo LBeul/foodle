@@ -7,12 +7,13 @@ import RootPage from '@/pages/RootPage';
 import { createBrowserRouter } from 'react-router-dom';
 import PageWrapper from './PageWrapper';
 import { restaurantLoader } from './loaders';
+import LoginPage from '@/pages/LoginPage';
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <PageWrapper />,
-    errorElement: <ErrorPage />,
+    errorElement: <ErrorPage asRoot />,
     children: [
       { path: '/', element: <RootPage />, errorElement: <ErrorPage /> },
       { path: '/about', element: <AboutPage />, errorElement: <ErrorPage /> },
@@ -33,6 +34,11 @@ const router = createBrowserRouter([
       {
         path: '/new-restaurant',
         element: <CreatePage />,
+        errorElement: <ErrorPage />,
+      },
+      {
+        path: '/login',
+        element: <LoginPage />,
         errorElement: <ErrorPage />,
       },
     ],

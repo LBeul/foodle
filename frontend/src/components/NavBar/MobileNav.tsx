@@ -27,7 +27,6 @@ const MobileNavItem = ({ label, href }: NavItem): ReactElement => {
   return (
     <Stack spacing={4}>
       <Flex py={2} as={Link} to={href} justify='space-between' align='center'>
-      <Flex py={2} as={Link} to={href} justify='space-between' align='center'>
         <Text fontWeight={600}>{label}</Text>
       </Flex>
     </Stack>
