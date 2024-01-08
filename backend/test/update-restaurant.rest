@@ -1,0 +1,11 @@
+PUT http://localhost:3003/api/restaurants/655245544f24440a0c42623c
+Content-Type: application/json
+
+{
+  "title": "Angry Chicken",
+  "street": "Wilhelminenhofstraße 75a",
+  "zipCode": "10999",
+  "likeCount": "0",
+  "imageSrc": "https://cdn7.site-media.eu/images/900/3269591/Menu1.3.jpg",
+  "description": "Koreanisches Streetfood vom feinsten: Korean Fried Chicken, Corn Dogs und Kimchi."
+}
