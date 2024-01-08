@@ -16,7 +16,7 @@ import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 function RootPage() {
-  const { restaurants, error, state, refresh } = useRestaurants();
+  const { restaurants, error, fetchState, refresh } = useRestaurants();
   const { isLoggedIn } = useAtomValue(AuthAtom);
 
   useEffect(() => {
@@ -31,9 +31,9 @@ function RootPage() {
   return (
     <main>
       <VStack w='80%' mx='auto'>
-        {state === 'loading' ? (
+        {fetchState === 'loading' ? (
           <>
-            <Text mb={5}>Loading Items</Text>
+            <Text mb={5}>Loading Items...</Text>
             <Spinner
               thickness='4px'
               speed='0.65s'
@@ -43,7 +43,7 @@ function RootPage() {
           </>
         ) : (
           <>
-            {state === 'error' ? (
+            {fetchState === 'error' ? (
               <Alert status='error'>
                 <AlertIcon />
                 <AlertTitle>Error!</AlertTitle>

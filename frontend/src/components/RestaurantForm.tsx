@@ -1,8 +1,9 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 import ValidatedInput from './ValidatedInput';
 import { FormInputs, Restaurant, RestaurantPayload } from '@/types';
-import { Button, useToast } from '@chakra-ui/react';
+import { Button, ButtonGroup, Stack, useToast } from '@chakra-ui/react';
 import { useNavigate } from 'react-router';
+import { Link } from 'react-router-dom';
 
 interface FormProps {
   defaults?: Restaurant;
@@ -30,6 +31,9 @@ const RestaurantForm = ({ defaults, method, id }: FormProps) => {
 
   const onSubmit: SubmitHandler<FormInputs> = async (data: FormInputs) => {
     const payload: Omit<RestaurantPayload, 'id'> | RestaurantPayload = data;
+    if (!payload.imageSrc) {
+      payload.imageSrc = undefined;
+    }
     try {
       const response = await fetch(url, {
         method,
@@ -42,7 +46,7 @@ const RestaurantForm = ({ defaults, method, id }: FormProps) => {
       const { id } = restaurant;
       navigate(`/restaurants/${id}`);
       toast({
-        title: 'All right!',
+        title: 'Erledigt!',
         description: `Restaurant wurde erfolgreich ${
           method === 'POST' ? 'angelegt' : 'aktualisiert'
         }`,
@@ -54,7 +58,7 @@ const RestaurantForm = ({ defaults, method, id }: FormProps) => {
     } catch (error) {
       if (error instanceof Error) {
         toast({
-          title: 'Ooops!',
+          title: 'Ohoh!',
           description:
             method === 'POST'
               ? 'Restaurant konnte nicht angelegt werden!'
@@ -69,95 +73,99 @@ const RestaurantForm = ({ defaults, method, id }: FormProps) => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <ValidatedInput
-        id='title'
-        label='Titel'
-        errors={errors}
-        defaultValue={defaults?.title}
-        errorMsg={errors?.title?.message}
-        registerReturn={register('title', {
-          required: 'Pflichtangabe',
-          minLength: {
-            value: 3,
-            message: 'Titel muss mindestens 3 Zeichen lang sein',
-          },
-        })}
-      />
-      <ValidatedInput
-        id='imageSrc'
-        label='Bild-Link'
-        errors={errors}
-        defaultValue={defaults?.imageSrc}
-        errorMsg={errors?.imageSrc?.message}
-        registerReturn={register('imageSrc', {
-          required: 'Pflichtangabe',
-          pattern: {
-            value:
-              /[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)?/gi,
-            message: 'Bitte einen valide HTTP/HTTPS URL angeben',
-          },
-        })}
-      />
-      <ValidatedInput
-        id='street'
-        label='Straße'
-        errors={errors}
-        defaultValue={defaults?.street}
-        errorMsg={errors?.street?.message}
-        registerReturn={register('street', {
-          required: 'Pflichtangabe',
-          pattern: {
-            value: /^(([a-zA-ZäöüÄÖÜ]\D*)\s+\d+?\s*.*)$/,
-            message: 'Bitte im Format "Straße Nr" angeben',
-          },
-        })}
-      />
-      <ValidatedInput
-        id='zipCode'
-        label='Postleitzahl'
-        errors={errors}
-        defaultValue={defaults?.zipCode}
-        errorMsg={errors?.zipCode?.message}
-        registerReturn={register('zipCode', {
-          required: 'Pflichtangabe',
-          pattern: {
-            value: /^[0-9]{5}$/,
-            message: 'Bitte geben Sie eine valide PLZ an',
-          },
-        })}
-      />
-      <ValidatedInput
-        isTextArea
-        id='description'
-        label='Beschreibung'
-        errors={errors}
-        defaultValue={defaults?.description}
-        errorMsg={errors?.description?.message}
-        registerReturn={register('description', {
-          required: 'Pflichtangabe',
-          minLength: {
-            value: 5,
-            message: 'Beschreibung muss mindestens 5 Zeichen lang sein',
-          },
-        })}
-      />
-      <Button
-        colorScheme='purple'
-        isLoading={isSubmitting}
-        isDisabled={hasErrors}
-        type='submit'
-      >
-        Speichern
-      </Button>
-      <Button
-        colorScheme='purple'
-        variant='outline'
-        onClick={() => navigate('/')}
-      >
-        Zurück
-      </Button>
-    </form>
+    <Stack as='form' onSubmit={handleSubmit(onSubmit)} w='100%'>
+      <Stack spacing={4} w='100%'>
+        <ValidatedInput
+          id='title'
+          label='Titel'
+          errors={errors}
+          defaultValue={defaults?.title}
+          errorMsg={errors?.title?.message}
+          registerReturn={register('title', {
+            required: 'Pflichtangabe',
+            minLength: {
+              value: 3,
+              message: 'Titel muss mindestens 3 Zeichen lang sein',
+            },
+          })}
+        />
+        <ValidatedInput
+          id='imageSrc'
+          label='Bild-Link'
+          errors={errors}
+          defaultValue={defaults?.imageSrc}
+          errorMsg={errors?.imageSrc?.message}
+          registerReturn={register('imageSrc', {
+            pattern: {
+              value:
+                /[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)?/gi,
+              message: 'Bitte einen validen URL angeben',
+            },
+          })}
+        />
+        <ValidatedInput
+          id='street'
+          label='Straße'
+          errors={errors}
+          defaultValue={defaults?.street}
+          errorMsg={errors?.street?.message}
+          registerReturn={register('street', {
+            required: 'Pflichtangabe',
+            pattern: {
+              value: /^(([a-zA-ZäöüÄÖÜ]\D*)\s+\d+?\s*.*)$/,
+              message: 'Bitte im Format "Straße Nr" angeben',
+            },
+          })}
+        />
+        <ValidatedInput
+          id='zipCode'
+          label='Postleitzahl'
+          errors={errors}
+          defaultValue={defaults?.zipCode}
+          errorMsg={errors?.zipCode?.message}
+          registerReturn={register('zipCode', {
+            required: 'Pflichtangabe',
+            pattern: {
+              value: /^[0-9]{5}$/,
+              message: 'Bitte geben Sie eine valide PLZ an.',
+            },
+          })}
+        />
+        <ValidatedInput
+          isTextArea
+          id='description'
+          label='Beschreibung'
+          errors={errors}
+          defaultValue={defaults?.description}
+          errorMsg={errors?.description?.message}
+          registerReturn={register('description', {
+            required: 'Pflichtangabe',
+            minLength: {
+              value: 5,
+              message: 'Beschreibung muss mindestens 5 Zeichen lang sein',
+            },
+          })}
+        />
+        <ButtonGroup mt={6}>
+          <Button
+            colorScheme='purple'
+            isLoading={isSubmitting}
+            isDisabled={hasErrors}
+            type='submit'
+          >
+            Speichern
+          </Button>
+          <Button
+            colorScheme='purple'
+            variant='outline'
+            as={Link}
+            to={`/restaurants/${id}`}
+          >
+            Zurück
+          </Button>
+        </ButtonGroup>
+      </Stack>
+    </Stack>
   );
 };
 

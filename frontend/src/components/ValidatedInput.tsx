@@ -32,6 +32,8 @@ const ValidatedInput = ({
       <FormLabel htmlFor={id}>{label}</FormLabel>
       {isTextArea ? (
         <Textarea
+          h={200}
+          resize='none'
           id={id}
           placeholder={label}
           defaultValue={defaultValue}

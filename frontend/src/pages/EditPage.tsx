@@ -30,9 +30,10 @@ function EditPage() {
           direction={{ base: 'column', sm: 'row' }}
           align='start'
           overflow='hidden'
+          w='100%'
           mb={{ base: 8, sm: 4 }}
         >
-          <VStack align='start' spacing={4}>
+          <VStack align='start' spacing={4} w='100%' mt={8}>
             <Heading>
               {defaults.title}{' '}
               <Text as='span' fontWeight={400}>

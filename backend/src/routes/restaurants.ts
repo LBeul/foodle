@@ -32,7 +32,8 @@ restaurantsRouter.get(
 restaurantsRouter.post(
   '/',
   async (request: Request, response: Response): Promise<void> => {
-    const { title, street, zipCode, imageSrc, description } = request.body;
+    const { title, street, zipCode, imageSrc, description } =
+      request.body as Restaurant;
 
     const populatedRestaurant: Restaurant = await completeAddress({
       title,
