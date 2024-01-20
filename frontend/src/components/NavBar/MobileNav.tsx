@@ -2,6 +2,7 @@ import { Flex, Stack, Text } from '@chakra-ui/react';
 import { ReactElement } from 'react';
 import { NavItem } from '@/types';
 import { Link } from 'react-router-dom';
+import LogInOutButton from '../LoginOutButton';
 
 export const MobileNav = ({ items }: { items: NavItem[] }): ReactElement => {
   return (
@@ -10,6 +11,7 @@ export const MobileNav = ({ items }: { items: NavItem[] }): ReactElement => {
         {items.map((navItem) => (
           <MobileNavItem key={navItem.label} {...navItem} />
         ))}
+        <LogInOutButton variant='mobile' />
       </Stack>
     </Flex>
   );

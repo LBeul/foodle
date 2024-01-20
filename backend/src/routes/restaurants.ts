@@ -2,6 +2,7 @@ import Router, { NextFunction, Request, Response } from 'express';
 import RestaurantModel from '../models/restaurant';
 import { Restaurant } from '../types';
 import completeAddress from '../services/geoCoding';
+import mongoose from 'mongoose';
 
 const restaurantsRouter = Router();
 
@@ -18,13 +19,14 @@ restaurantsRouter.get(
 restaurantsRouter.get(
   '/:id',
   async (request: Request, response: Response): Promise<void> => {
-    const restaurant: Restaurant | null | undefined =
-      await RestaurantModel.findById(request.params.id);
-    if (restaurant) {
-      response.json(restaurant);
-    } else {
-      response.status(404).end();
+    const isValidId = mongoose.Types.ObjectId.isValid(request.params.id);
+    if (isValidId) {
+      const restaurant = await RestaurantModel.findById(request.params.id);
+      if (restaurant) {
+        response.json(restaurant);
+      }
     }
+    response.status(404).end();
   }
 );
 

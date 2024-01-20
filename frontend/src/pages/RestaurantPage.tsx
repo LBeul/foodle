@@ -14,6 +14,8 @@ import { useLoaderData, useNavigate } from 'react-router';
 import { FaRoad, FaCity } from 'react-icons/fa';
 import { BiSolidLike } from 'react-icons/bi';
 import { Link } from 'react-router-dom';
+import { useAtomValue } from 'jotai';
+import AuthAtom from '@/stores/authStore';
 
 function RestaurantDetailsPage() {
   const { restaurant } = useLoaderData() as { restaurant: Restaurant };
@@ -21,6 +23,7 @@ function RestaurantDetailsPage() {
     restaurant;
   const navigate = useNavigate();
   const toast = useToast();
+  const { isLoggedIn } = useAtomValue(AuthAtom);
 
   const deleteRestaurant = async () => {
     try {
@@ -92,26 +95,29 @@ function RestaurantDetailsPage() {
               <Text>{`${zipCode} Berlin`}</Text>
             </HStack>
             <Text>{description}</Text>
-            <HStack justifyContent='start' w='100%' pt={4}>
-              <Button
-                variant='outline'
-                colorScheme='purple'
-                as={Link}
-                to={`/edit/${id}`}
-                w={150}
-              >
-                Bearbeiten
-              </Button>
-              <Button
-                onClick={deleteRestaurant}
-                variant='outline'
-                colorScheme='red'
-                as='a'
-                w={150}
-              >
-                Löschen
-              </Button>
-            </HStack>
+            {isLoggedIn && (
+              <HStack justifyContent='start' w='100%' pt={4}>
+                <Button
+                  variant='outline'
+                  colorScheme='purple'
+                  as={Link}
+                  to={`/edit/${id}`}
+                  w={150}
+                >
+                  Bearbeiten
+                </Button>
+                <Button
+                  onClick={deleteRestaurant}
+                  variant='outline'
+                  colorScheme='red'
+                  as={Link}
+                  to='/'
+                  w={150}
+                >
+                  Löschen
+                </Button>
+              </HStack>
+            )}
           </VStack>
         </VStack>
       </VStack>

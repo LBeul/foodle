@@ -13,7 +13,6 @@ export interface RestaurantPayload {
 }
 
 export interface User {
-  userId: string;
-  password: string;
-  isAdmin: boolean;
+  username: string;
+  passwordHash: string;
 }

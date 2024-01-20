@@ -34,3 +34,19 @@ export interface FormInputs {
 }
 
 export type FetchState = 'initial' | 'loading' | 'success' | 'error';
+
+export interface LoginCredentials {
+  username: string;
+  password: string;
+}
+
+export interface AuthResponseContent {
+  username: string;
+  token: string;
+}
+
+export interface AuthStatus {
+  isLoggedIn: boolean;
+  username?: string;
+  token?: string;
+}
