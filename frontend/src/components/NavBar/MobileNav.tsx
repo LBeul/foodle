@@ -1,23 +1,17 @@
-import { Button, Flex, Stack, Text } from '@chakra-ui/react';
+import { Flex, Stack, Text } from '@chakra-ui/react';
 import { ReactElement } from 'react';
 import { NavItem } from '@/types';
 import { Link } from 'react-router-dom';
-import { useAtomValue } from 'jotai';
-import AuthAtom from '@/stores/authStore';
+import LogInOutButton from '../LoginOutButton';
 
 export const MobileNav = ({ items }: { items: NavItem[] }): ReactElement => {
-  const { isLoggedIn } = useAtomValue(AuthAtom);
   return (
     <Flex align='center' width='75%' mx='auto' mb={8}>
       <Stack w='100%' display={{ md: 'none' }}>
         {items.map((navItem) => (
           <MobileNavItem key={navItem.label} {...navItem} />
         ))}
-        {isLoggedIn && (
-          <Button as={Link} to={'/login'}>
-            Login
-          </Button>
-        )}
+        <LogInOutButton variant='mobile' />
       </Stack>
     </Flex>
   );

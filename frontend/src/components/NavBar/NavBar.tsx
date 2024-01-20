@@ -9,7 +9,6 @@ import {
   useColorMode,
   Heading,
   Image,
-  Button,
 } from '@chakra-ui/react';
 import { ReactElement } from 'react';
 import {
@@ -21,14 +20,11 @@ import {
 import { DesktopNav } from './DesktopNav';
 import { MobileNav } from './MobileNav';
 import { NavItem } from '@/types';
-import { useAtomValue } from 'jotai';
-import AuthAtom from '@/stores/authStore';
-import { Link } from 'react-router-dom';
+import LogInOutButton from '../LoginOutButton';
 
 export default function NavBar(): ReactElement {
   const { isOpen, onToggle } = useDisclosure();
   const { colorMode, toggleColorMode } = useColorMode();
-  const { isLoggedIn } = useAtomValue(AuthAtom);
 
   const NavItems: NavItem[] = [
     {
@@ -81,15 +77,7 @@ export default function NavBar(): ReactElement {
         </Flex>
 
         <Stack flex={{ base: 1, md: 0 }} justify='flex-end' direction='row'>
-          {!isLoggedIn && (
-            <Button
-              display={{ base: 'none', md: 'flex' }}
-              as={Link}
-              to={'/login'}
-            >
-              Login
-            </Button>
-          )}
+          <LogInOutButton variant='desktop' />
           <IconButton
             onClick={toggleColorMode}
             borderRadius='full'

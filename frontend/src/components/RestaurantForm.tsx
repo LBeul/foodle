@@ -159,7 +159,7 @@ const RestaurantForm = ({ defaults, method, id }: FormProps) => {
             colorScheme='purple'
             variant='outline'
             as={Link}
-            to={`/restaurants/${id}`}
+            to={method === 'PUT' ? `/restaurants/${id}` : '/'}
           >
             Zurück
           </Button>
