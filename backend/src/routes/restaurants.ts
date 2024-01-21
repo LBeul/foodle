@@ -24,9 +24,12 @@ restaurantsRouter.get(
       const restaurant = await RestaurantModel.findById(request.params.id);
       if (restaurant) {
         response.json(restaurant);
+      } else {
+        response.status(404).end();
       }
+    } else {
+      response.status(404).end();
     }
-    response.status(404).end();
   }
 );
 
