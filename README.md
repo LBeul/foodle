@@ -2,8 +2,6 @@
 
 ## Coursework for Front End Development @ HTW Berlin
 
-- **Name**: Louis Beul
-- **Matrikelnr.**: 588411
 - **App Name**: Foodle
 - **Items**: Restaurants (`{title, lat, lon, street, zipCode, likeCount, imageSrc, description}`)
 - **Backend Option**: Self-built Express/TypeScript/MongoDB Backend
